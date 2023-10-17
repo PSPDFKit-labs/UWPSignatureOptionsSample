@@ -1,10 +1,15 @@
-﻿using System;
+﻿using PSPDFKit.Document;
+using PSPDFKit.Pdf;
+using PSPDFKit.Pdf.ElectronicSignatures;
+using PSPDFKit.UI;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,6 +30,24 @@ namespace UWPSignatureOptionsSample
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        private async void OnPDFViewInitialized(PdfView sender, Document args)
+        {
+            var document = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/demo.pdf"));
+            await PDFView.Controller.ShowDocumentWithViewStateAsync(DocumentSource.CreateFromStorageFile(document), new ViewState
+            {
+                // Note that electronic signature options can only be set before the document is loaded.
+                ElectronicSignatureOptions = new SignatureOptions()
+                {
+                    CreationModes = new[]
+                   {
+                       ElectronicSignatureCreationMode.Type,
+                       ElectronicSignatureCreationMode.Draw,
+                   }
+                },
+                InteractionMode = InteractionMode.InkSignature
+            });
         }
     }
 }

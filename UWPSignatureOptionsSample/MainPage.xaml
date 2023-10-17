@@ -10,6 +10,6 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <ui:PdfView x:Name="PDFView" PdfUriSource="ms-appx:///Assets/demo.pdf" />
+        <ui:PdfView x:Name="PDFView" InitializationCompletedHandler="OnPDFViewInitialized"/>
     </Grid>
 </Page>
