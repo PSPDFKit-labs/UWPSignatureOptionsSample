@@ -10,6 +10,11 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <ui:PdfView x:Name="PDFView" InitializationCompletedHandler="OnPDFViewInitialized"/>
+        <Button Click="OnOpenSignatureUIClicked" Content="Show Signature UI" Grid.Row="1"/>
     </Grid>
 </Page>

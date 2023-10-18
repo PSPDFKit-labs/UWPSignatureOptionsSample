@@ -45,7 +45,14 @@ namespace UWPSignatureOptionsSample
                        ElectronicSignatureCreationMode.Type,
                        ElectronicSignatureCreationMode.Draw,
                    }
-                },
+                }
+            });
+        }
+
+        private async void OnOpenSignatureUIClicked(object sender, RoutedEventArgs e)
+        {
+            await PDFView.Controller.SetViewStateAsync(new ViewState
+            {
                 InteractionMode = InteractionMode.InkSignature
             });
         }
