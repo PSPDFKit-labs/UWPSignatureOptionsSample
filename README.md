@@ -15,7 +15,14 @@ The signature options and interaction mode can be updated programatically by cal
                        ElectronicSignatureCreationMode.Type,
                        ElectronicSignatureCreationMode.Draw,
                    }
-                },
+                }
+            });
+        }
+
+        private async void OnOpenSignatureUIClicked(object sender, RoutedEventArgs e)
+        {
+            await PDFView.Controller.SetViewStateAsync(new ViewState
+            {
                 InteractionMode = InteractionMode.InkSignature
             });
         }
