@@ -2,6 +2,7 @@
 using PSPDFKit.Pdf;
 using PSPDFKit.Pdf.ElectronicSignatures;
 using PSPDFKit.UI;
+using PSPDFKit.UI.ToolbarComponents;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,6 +36,11 @@ namespace UWPSignatureOptionsSample
         private async void OnPDFViewInitialized(PdfView sender, Document args)
         {
             var document = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/demo.pdf"));
+            var toolbarItems = PDFView.GetToolbarItems();
+            var signToolIndex = toolbarItems.IndexOf(toolbarItems.First(item => item is SignatureToolbarItem));
+            toolbarItems.RemoveAt(signToolIndex);
+            await PDFView.SetToolbarItemsAsync(toolbarItems);
+
             await PDFView.Controller.ShowDocumentWithViewStateAsync(DocumentSource.CreateFromStorageFile(document), new ViewState
             {
                 // Note that electronic signature options can only be set before the document is loaded.
